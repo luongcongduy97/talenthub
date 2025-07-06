@@ -1,3 +1,11 @@
-<h1>User Details</h1>
-<p>Email: <%= @user.email %></p>
-<p>Roles: <%= @user.roles.pluck(:name).join(", ") %></p>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm animate__animated animate__fadeInUp">
+      <div class="card-body">
+        <h1 class="card-title h4 mb-3">User Details</h1>
+        <p class="mb-1"><strong>Email:</strong> <%= @user.email %></p>
+        <p class="mb-0"><strong>Roles:</strong> <%= @user.roles.pluck(:name).join(', ') %></p>
+      </div>
+    </div>
+  </div>
+</div>

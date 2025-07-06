@@ -8,3 +8,18 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+
+body {
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  color: #ffffff;
+}
+
+h1, h5 {
+  color: #ffffff;
+}
+
+.card {
+  border: none;
+  color: #000000;
+}
