@@ -1,0 +1,13 @@
+<turbo-frame id="<%= dom_id(employee) %>">
+  <div class="bg-white shadow rounded p-4">
+    <h5 class="text-lg font-semibold">
+      <%= link_to employee.name, employee, class: 'text-indigo-600 hover:underline' %>
+    </h5>
+    <p class="text-sm">Position: <%= employee.position %></p>
+    <p class="text-sm">Company: <%= employee.company.name %></p>
+    <div class="mt-2">
+      <%= link_to 'Edit', edit_employee_path(employee), class: 'text-indigo-600 hover:underline' %> |
+      <%= link_to 'Destroy', employee, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'text-red-600 hover:underline' %>
+    </div>
+  </div>
+</turbo-frame>
