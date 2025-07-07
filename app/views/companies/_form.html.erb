@@ -1,0 +1,13 @@
+<%= form_with(model: company, class: 'space-y-4') do |f| %>
+  <div>
+    <%= f.label :name, class: 'block text-sm font-medium text-gray-700' %>
+    <%= f.text_field :name, class: 'mt-1 block w-full text-black' %>
+  </div>
+  <div>
+    <%= f.label :industry, class: 'block text-sm font-medium text-gray-700' %>
+    <%= f.text_field :industry, class: 'mt-1 block w-full text-black' %>
+  </div>
+  <div>
+    <%= f.submit class: 'px-4 py-2 bg-indigo-600 text-white rounded' %>
+  </div>
+<% end %>
