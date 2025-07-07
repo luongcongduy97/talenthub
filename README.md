@@ -46,10 +46,18 @@ Talenthub is a simple Ruby on Rails application for managing companies, employee
 
 ## Running Tests
 
-This project currently does not include test files. The command below is provided for when tests are added:
+RSpec is used for the test suite. Run all specs with:
 
 ```bash
-bin/rails test
+bin/rspec
+```
+
+## Code Style
+
+Rubocop is configured via `rubocop-rails-omakase`. To check the code style run:
+
+```bash
+bin/rubocop
 ```
 
 ## Project Usage
@@ -57,3 +65,7 @@ bin/rails test
 After starting the server, visit `http://localhost:3000` to sign up or log in. An admin user created from the seed file can view all users, while regular users can only view their own profile.
 
 Employees belong to companies and users. The admin can manage these records using standard Rails CRUD actions (controllers can be extended as needed).
+
+```
+
+```
