@@ -2,6 +2,9 @@
 
 Talenthub is a simple Ruby on Rails application for managing companies, employees and user accounts. It demonstrates authentication, role based authorization and background jobs.
 
+<img width="1352" alt="Screenshot 2025-07-08 at 20 14 26" src="https://github.com/user-attachments/assets/b9594d65-23ad-4c55-86bd-0c039106d0ab" />
+
+
 ## Tech Stack
 
 - **Ruby** 3.3
