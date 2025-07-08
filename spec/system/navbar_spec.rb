@@ -31,6 +31,8 @@ RSpec.describe 'Navbar', type: :system do
   context 'mobile menu', js: true do
     before do
       driven_by(:selenium, using: :headless_chrome)
+      page.driver.browser.manage.window.resize_to(375, 800)
+
       @user = User.create!(email: 'menutest@example.com', password: 'password123', password_confirmation: 'password123')
       visit new_user_session_path
       fill_in 'Email', with: @user.email
