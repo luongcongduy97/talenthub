@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  # Originally the application restricted access to only "modern" browsers
+  # using `allow_browser versions: :modern`. Some mobile browsers were
+  # incorrectly flagged as unsupported, resulting in a 406 Not Acceptable
+  # response when navigating via the mobile menu. Commenting out this line
+  # prevents those spurious 406 errors.
+  # allow_browser versions: :modern
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
