@@ -1,0 +1,30 @@
+{
+  "name": "talenthub",
+  "version": "1.0.0",
+  "description": "Talenthub is a simple Ruby on Rails application for managing companies, employees and user accounts. It demonstrates authentication, role based authorization and background jobs.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/application.js --bundle --outfile=app/assets/builds/application.js --sourcemap --format=esm",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luongcongduy97/talenthub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luongcongduy97/talenthub/issues"
+  },
+  "homepage": "https://github.com/luongcongduy97/talenthub#readme",
+  "devDependencies": {
+    "esbuild": "^0.25.6"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2"
+  }
+}
