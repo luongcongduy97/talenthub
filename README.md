@@ -33,7 +33,7 @@ Talenthub is a simple Ruby on Rails application for managing companies, employee
    bundle install
    yarn install # if using Node dependencies
    ```
-2. Set up the database and seed an admin account:
+2. Set up the database and seed initial data (admin, companies and employees):
    ```bash
    bin/rails db:setup
    bin/rails db:seed
@@ -65,7 +65,7 @@ bin/rubocop
 
 ## Project Usage
 
-After starting the server, visit `http://localhost:3000` to sign up or log in. An admin user created from the seed file can view all users, while regular users can only view their own profile.
+After starting the server, visit `http://localhost:3000` to sign up or log in. An admin user created from the seed file can view all users, while regular users can only view their own profile. The seed data also creates a couple of companies and employees so you have some records to explore immediately.
 
 Employees belong to companies and users. The admin can manage these records using standard Rails CRUD actions (controllers can be extended as needed).
 
