@@ -1,0 +1,11 @@
+turbo-frame id=dom_id(company)
+  .bg-white.rounded-xl.shadow-md.hover:shadow-lg.transition.p-5.border.border-gray-100
+    h2.text-xl.font-bold.text-gray-800.truncate.mb-1
+      = link_to company.name.presence || "Unnamed", company, class: 'hover:text-indigo-600 transition'
+    p.text-sm.text-gray-500
+      | Industry: #{company.industry.presence || 'N/A'}
+    .mt-4.flex.items-center.gap-4.text-sm
+      = link_to '✏️ Edit', edit_company_path(company), class: 'text-indigo-600 hover:underline'
+      = link_to '🗑️ Delete', company,
+        data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+        class: 'text-red-600 hover:underline'
