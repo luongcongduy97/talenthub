@@ -1,0 +1,11 @@
+div.row.justify-content-center
+  div.col-md-6
+    div.card.shadow-sm.animate-fade-up
+      div.card-body
+        h1.card-title.h4.mb-3 User Details
+        p.mb-1
+          strong Email:
+          = @user.email
+        p.mb-0
+          strong Roles:
+          = @user.roles.pluck(:name).join(', ')
