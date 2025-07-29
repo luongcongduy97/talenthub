@@ -1,0 +1,12 @@
+div.text-center.mb-4
+  h1.display-5.fw-bold Users
+
+div.row.row-cols-1.row-cols-md-2.g-4
+  - @users.each do |user|
+    div.col
+      div.card.shadow-sm.h-100.animate__animated.animate__zoomIn
+        div.card-body
+          h5.card-title = link_to user.email, user_path(user), class: 'stretched-link text-decoration-none'
+          p.card-text
+            | Roles: 
+            = user.roles.pluck(:name).join(', ')
