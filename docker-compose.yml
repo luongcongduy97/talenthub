@@ -30,5 +30,19 @@ services:
       DATABASE_URL: postgres://postgres:password@db:5432/postgres
       REDIS_URL: redis://redis:6379/1
 
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bundle exec sidekiq
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/postgres
+      REDIS_URL: redis://redis:6379/1
+
 volumes:
   db_data:
