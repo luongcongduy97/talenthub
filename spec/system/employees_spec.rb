@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Employees', type: :system do
   before do
     driven_by(:rack_test)
@@ -20,7 +22,7 @@ RSpec.describe 'Employees', type: :system do
     select user.email, from: 'User'
     click_button 'Create Employee'
 
-    employee = Employee.order(:id).last
+    employee = Employee.last
     expect(page).to have_current_path(employee_path(employee))
     expect(page).to have_content('John Doe')
     expect(page).to have_content(company.name)
