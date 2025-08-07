@@ -22,7 +22,7 @@ RSpec.describe 'Employees', type: :system do
     select user.email, from: 'User'
     click_button 'Create Employee'
 
-    employee = Employee.last
+    employee = Employee.find_by(name: 'John Doe')
     expect(page).to have_current_path(employee_path(employee))
     expect(page).to have_content('John Doe')
     expect(page).to have_content(company.name)
