@@ -12,7 +12,7 @@ RSpec.describe 'Authentication', type: :system do
     fill_in 'Password confirmation', with: 'password123'
     click_button 'Sign up'
 
-    user = User.last
+    user = User.find_by(email: 'systemuser@example.com')
     expect(page).to have_current_path(user_path(user))
     expect(page).to have_content('User Details')
   end
