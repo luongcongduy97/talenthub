@@ -18,7 +18,7 @@ RSpec.describe 'Companies', type: :system do
     fill_in 'Industry', with: 'Tech'
     click_button 'Create Company'
 
-    company = Company.last
+    company = Company.find_by(name: 'Test Corp')
     expect(page).to have_current_path(company_path(company))
     expect(page).to have_content('Test Corp')
 
