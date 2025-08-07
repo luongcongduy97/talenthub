@@ -15,7 +15,7 @@ RSpec.describe 'Authentication', type: :request do
         }
       end.to change(User, :count).by(1)
 
-      user = User.order(:id).last
+      user = User.find_by(email: 'newuser@example.com')
       expect(response).to redirect_to(user_path(user))
       follow_redirect!
       expect(response).to have_http_status(:success)

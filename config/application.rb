@@ -39,6 +39,10 @@ module Talenthub
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
+
     # Use Sidekiq for background jobs
     config.active_job.queue_adapter = :sidekiq
   end
