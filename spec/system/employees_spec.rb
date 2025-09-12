@@ -30,4 +30,22 @@ RSpec.describe 'Employees', type: :system do
     visit employees_path
     expect(page).to have_content('John Doe')
   end
+
+  it 'allows admin to search employees' do
+    admin = create(:user, :admin)
+    create(:employee, name: 'Alice Smith', position: 'Engineer')
+    create(:employee, name: 'Bob Jones', position: 'Designer')
+
+    visit new_user_session_path
+    fill_in 'Email', with: admin.email
+    fill_in 'Password', with: 'password123'
+    click_button 'Log in'
+
+    visit employees_path
+    fill_in 'query', with: 'Alice'
+    click_button 'Search'
+
+    expect(page).to have_content('Alice Smith')
+    expect(page).not_to have_content('Bob Jones')
+  end
 end

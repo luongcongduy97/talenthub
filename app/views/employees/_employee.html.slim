@@ -1,4 +1,4 @@
-turbo-frame id=dom_id(employee)
+= turbo_frame_tag dom_id(employee) do
   .card.animate-fade-up.bg-white.rounded-xl.shadow-md.hover:shadow-lg.transition.p-5.border.border-gray-100
     h2.text-xl.font-bold.text-gray-800.truncate.mb-1
       = link_to employee.name.presence || "Unnamed", employee, class: 'hover:text-indigo-600 transition'
