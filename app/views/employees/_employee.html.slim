@@ -1,11 +1,11 @@
-turbo-frame id=dom_id(employee)
+= turbo_frame_tag dom_id(employee) do
   .card.animate-fade-up.bg-white.rounded-xl.shadow-md.hover:shadow-lg.transition.p-5.border.border-gray-100
     h2.text-xl.font-bold.text-gray-800.truncate.mb-1
       = link_to employee.name.presence || "Unnamed", employee, class: 'hover:text-indigo-600 transition'
     p.text-sm.text-gray-500
       | Position: #{employee.position.presence || 'N/A'}
     p.text-sm.text-gray-500
-      | Company: #{employee.company.name}
+      | Company: #{company&.name || 'N/A'}
     .mt-4.flex.items-center.gap-4.text-sm
       = link_to '✏️ Edit', edit_employee_path(employee), class: 'text-indigo-600 hover:underline'
       = link_to '🗑️ Delete', employee,

@@ -4,7 +4,9 @@ class EmployeesController < ApplicationController
 
   def index
     @employees = policy_scope(Employee)
-    @employees = @employees.search_by_name_and_position(params[:query]) if params[:query].present?
+    if params[:query].present?
+      @employees = @employees.search_by_name_and_position(params[:query].to_s)
+    end
     authorize Employee
   end
 

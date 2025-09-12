@@ -6,7 +6,7 @@ div.text-center.mb-6
     = f.submit 'Search', class: 'ml-2 px-4 py-2 bg-white/10 text-white rounded border'
 
 div#employees.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-6
-  = render @employees
+  = render partial: "employees/employee", collection: @employees, as: :employee
 
 div.mt-6.flex.justify-center
   = link_to '➕ New Employee', new_employee_path,
