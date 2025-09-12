@@ -1,6 +1,3 @@
-+50
--0
-
 require 'rails_helper'
 
 RSpec.describe "Employees", type: :request do

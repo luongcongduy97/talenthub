@@ -5,7 +5,7 @@
     p.text-sm.text-gray-500
       | Position: #{employee.position.presence || 'N/A'}
     p.text-sm.text-gray-500
-      | Company: #{company&.name || 'N/A'}
+      | Company: #{employee.company.name}
     .mt-4.flex.items-center.gap-4.text-sm
       = link_to '✏️ Edit', edit_employee_path(employee), class: 'text-indigo-600 hover:underline'
       = link_to '🗑️ Delete', employee,
