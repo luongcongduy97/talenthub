@@ -1,3 +1,8 @@
+# db/seeds.rb
+
+# Chỉ chạy seed cho development
+return unless Rails.env.development?
+
 # Tạo user admin nếu chưa có
 admin_email = "admin@talenthub.com"
 admin_password = "password123"
