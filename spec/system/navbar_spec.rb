@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Navbar', type: :system do
-  let(:user) { User.create!(email: 'user@example.com', password: 'password123', password_confirmation: 'password123') }
-
   context 'when not signed in' do
     it 'shows brand link but hides navigation links' do
       visit new_user_session_path
@@ -16,43 +14,54 @@ RSpec.describe 'Navbar', type: :system do
 
   context 'when signed in' do
     before do
+      @user = User.create!(email: 'navuser@example.com', password: 'password123', password_confirmation: 'password123')
       visit new_user_session_path
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: 'password123'
       click_button 'Log in'
     end
 
-    context 'on desktop' do
-      it 'shows the navigation links' do
+    it 'shows the navigation links' do
+      expect(page).to have_link('Companies', href: companies_path)
+      expect(page).to have_link('Employees', href: employees_path)
+      expect(page).to have_button('Logout')
+    end
+  end
+
+  context 'mobile menu', js: true do
+    before do
+      driven_by(:selenium, using: :headless_chrome)
+      page.driver.browser.manage.window.resize_to(375, 800)
+
+      @user = User.create!(email: 'menutest@example.com', password: 'password123', password_confirmation: 'password123')
+      visit new_user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: 'password123'
+      click_button 'Log in'
+    end
+
+    it 'toggles when the button is clicked' do
+      page.driver.browser.manage.window.resize_to(375, 667)
+
+      expect(page).to have_selector('div[data-menu-target="menu"]', visible: false)
+
+      find('button[data-action="click->menu#toggle"]').click
+
+      expect(page).to have_selector('div[data-menu-target="menu"]', visible: true)
+
+      find('button[data-action="click->menu#toggle"]').click
+
+      expect(page).to have_selector('div[data-menu-target="menu"]', visible: false)
+    end
+
+    it 'contains navigation links inside the menu' do
+      page.driver.browser.manage.window.resize_to(375, 667)
+
+      find('button[data-action="click->menu#toggle"]').click
+      within('div[data-menu-target="menu"]') do
         expect(page).to have_link('Companies', href: companies_path)
         expect(page).to have_link('Employees', href: employees_path)
         expect(page).to have_button('Logout')
-      end
-    end
-
-    context 'on mobile', js: true do
-      before do
-        driven_by :selenium, using: :headless_chrome, screen_size: [ 375, 667 ]
-      end
-
-      it 'toggles the menu visibility when clicked' do
-        expect(page).to have_selector('div[data-menu-target="menu"]', visible: false)
-
-        find('button[data-action="click->menu#toggle"]').click
-        expect(page).to have_selector('div[data-menu-target="menu"]', visible: true)
-
-        find('button[data-action="click->menu#toggle"]').click
-        expect(page).to have_selector('div[data-menu-target="menu"]', visible: false)
-      end
-
-      it 'contains navigation links inside the menu' do
-        find('button[data-action="click->menu#toggle"]').click
-
-        within('div[data-menu-target="menu"]') do
-          expect(page).to have_link('Companies', href: companies_path)
-          expect(page).to have_link('Employees', href: employees_path)
-          expect(page).to have_button('Logout')
-        end
       end
     end
   end
