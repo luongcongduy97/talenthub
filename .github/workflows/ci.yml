@@ -78,7 +78,7 @@ jobs:
         run: yarn build
 
       - name: Build CSS
-        run: yarn build:css
+        run: bin/rails tailwindcss:build
 
       - name: Set up database
         run: bin/rails db:prepare
