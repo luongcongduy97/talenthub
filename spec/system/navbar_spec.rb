@@ -41,6 +41,7 @@ RSpec.describe 'Navbar', type: :system do
     end
 
     it 'toggles when the button is clicked' do
+      page.driver.browser.manage.window.resize_to(375, 667)
       expect(page).to have_css('div[data-menu-target="menu"].hidden', visible: :all)
 
       find('button[data-action="click->menu#toggle"]').click
