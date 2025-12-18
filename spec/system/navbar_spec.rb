@@ -41,22 +41,16 @@ RSpec.describe 'Navbar', type: :system do
     end
 
     it 'toggles when the button is clicked' do
-      page.driver.browser.manage.window.resize_to(375, 667)
-
       expect(page).to have_selector('div[data-menu-target="menu"]', visible: false)
-
       find('button[data-action="click->menu#toggle"]').click
 
       expect(page).to have_selector('div[data-menu-target="menu"]', visible: true)
-
       find('button[data-action="click->menu#toggle"]').click
 
       expect(page).to have_selector('div[data-menu-target="menu"]', visible: false)
     end
 
     it 'contains navigation links inside the menu' do
-      page.driver.browser.manage.window.resize_to(375, 667)
-
       find('button[data-action="click->menu#toggle"]').click
       within('div[data-menu-target="menu"]') do
         expect(page).to have_link('Companies', href: companies_path)
