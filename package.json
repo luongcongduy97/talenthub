@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "esbuild app/javascript/application.js --bundle --outfile=app/assets/builds/application.js --sourcemap --format=esm",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.css -o ./app/assets/builds/application.css --minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,7 +23,10 @@
   },
   "homepage": "https://github.com/luongcongduy97/talenthub#readme",
   "devDependencies": {
-    "esbuild": "^0.25.6"
+    "autoprefixer": "^10.4.23",
+    "esbuild": "^0.25.6",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
