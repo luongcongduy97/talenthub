@@ -41,13 +41,13 @@ RSpec.describe 'Navbar', type: :system do
     end
 
     it 'toggles when the button is clicked' do
-      expect(page).to have_css('div[data-menu-target="menu"].hidden', visible: :all)
-
+      expect(page).to have_selector('div[data-menu-target="menu"]', visible: false)
       find('button[data-action="click->menu#toggle"]').click
-      expect(page).to have_no_css('div[data-menu-target="menu"].hidden', visible: :all)
 
+      expect(page).to have_selector('div[data-menu-target="menu"]', visible: true)
       find('button[data-action="click->menu#toggle"]').click
-      expect(page).to have_css('div[data-menu-target="menu"].hidden', visible: :all)
+
+      expect(page).to have_selector('div[data-menu-target="menu"]', visible: false)
     end
 
     it 'contains navigation links inside the menu' do
