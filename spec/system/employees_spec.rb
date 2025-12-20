@@ -48,4 +48,36 @@ RSpec.describe 'Employees', type: :system do
     expect(page).to have_content('Alice Smith')
     expect(page).not_to have_content('Bob Jones')
   end
+
+  describe "Real-time notifications", js: true do
+    before do
+      driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 1400 ]
+    end
+
+    it 'notifies the linked user when admin updates their profile' do
+      admin = create(:user, :admin)
+
+      employee_user = create(:user, email: 'staff@example.com', password: 'password123')
+
+      employee = create(:employee, name: 'John Staff', position: 'Junior Dev', user: employee_user)
+
+      using_session("employee_browser") do
+        login_user(employee_user)
+
+        expect(page).to have_content('Talenthub')
+        expect(page).to have_no_content('Hồ sơ nhân viên của bạn đã được cập nhật')
+      end
+
+      login_user(admin)
+
+      visit edit_employee_path(employee)
+      fill_in 'Position', with: 'Senior Developer'
+      click_button 'Update Employee'
+
+      using_session("employee_browser") do
+        expect(page).to have_content('Hồ sơ nhân viên của bạn đã được cập nhật')
+        expect(page).to have_content('Senior Developer')
+      end
+    end
+  end
 end
