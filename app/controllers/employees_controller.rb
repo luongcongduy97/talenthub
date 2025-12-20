@@ -39,6 +39,12 @@ class EmployeesController < ApplicationController
   def update
     authorize @employee
     if @employee.update(employee_params)
+      if @employee.user
+        NotificationsChannel.broadcast_to(
+          @employee.user,
+          { message: "Hồ sơ nhân viên của bạn đã được cập nhật: #{@employee.position}!" }
+        )
+      end
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to @employee }
