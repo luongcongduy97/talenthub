@@ -6,4 +6,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :employees
+  has_many :notifications, dependent: :destroy
 end
