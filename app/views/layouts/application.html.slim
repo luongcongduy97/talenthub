@@ -3,7 +3,7 @@ html
   head
     = render "shared/head"
   body.min-h-screen.flex.flex-col.bg-gray-100.text-gray-900 data-controller="notifications"
-    div.fixed.top-5.right-5.z-50.w-80.space-y-4 data-notifications-target="container"
+    = render "shared/notifications_toast"
     nav.bg-gray-800.text-white data-controller="menu"
       .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
         .flex.items-center.justify-between.h-16
