@@ -65,7 +65,7 @@ RSpec.describe 'Employees', type: :system do
         login_user(employee_user)
 
         expect(page).to have_content('Talenthub')
-        expect(page).to have_no_content('Hồ sơ nhân viên của bạn đã được cập nhật')
+        expect(page).to have_no_content('Your profile has been updated')
       end
 
       login_user(admin)
@@ -75,7 +75,7 @@ RSpec.describe 'Employees', type: :system do
       click_button 'Update Employee'
 
       using_session("employee_browser") do
-        expect(page).to have_content('Hồ sơ nhân viên của bạn đã được cập nhật')
+        expect(page).to have_content('Your profile has been updated')
         expect(page).to have_content('Senior Developer')
       end
     end

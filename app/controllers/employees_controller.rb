@@ -40,14 +40,16 @@ class EmployeesController < ApplicationController
     authorize @employee
     if @employee.update(employee_params)
       if @employee.user
-        NotificationsChannel.broadcast_to(
-          @employee.user,
-          { message: "Hồ sơ nhân viên của bạn đã được cập nhật: #{@employee.position}!" }
+        Notification.create(
+          user: @employee.user,
+          message: "Your profile has been updated: #{@employee.position}!",
+          url: employee_path(@employee)
         )
       end
+
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to @employee }
+        format.html { redirect_to @employee, notice: "Employee updated successfully." }
       end
     else
       render :edit, status: :unprocessable_entity

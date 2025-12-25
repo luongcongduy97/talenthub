@@ -1,0 +1,9 @@
+a.block.px-4.py-3.hover:bg-gray-50.transition.duration-150.ease-in-bot class=(notification.read_at ? "opcaity-50" : "bg-blue-50") href=notification.url
+  div.flex.items-start
+    div.flex-shrink-0
+      span.inline-flex.items-center.justify-center.h-8.w-8.rounded-full.bg-blue-500
+        svg.h-5.w-5.text-white fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    div.ml-3.w-0.flex-1
+      p.text-sm.font-medium.text-gray-900 = notification.message
+      p.text-xs.text-gray-500.mt-1 = time_ago_in_words(notification.created_at) + " ago"
