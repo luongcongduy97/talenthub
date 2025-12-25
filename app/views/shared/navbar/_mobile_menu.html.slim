@@ -1,0 +1,6 @@
+div.hidden.md:hidden data-menu-target="menu"
+  .px-2.pt-2.pb-3.space-y-1.sm:px-3
+    - if user_signed_in?
+      = link_to "Companies", companies_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      = link_to "Employees", employees_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      = button_to "Logout", destroy_user_session_path, method: :delete, class: "text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left"
