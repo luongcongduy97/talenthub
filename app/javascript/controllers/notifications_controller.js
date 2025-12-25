@@ -1,8 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { createConsumer } from "@rails/actioncable"
 
-console.log("File JS Notifications đã được tải!")
-
 export default class extends Controller {
   static targets = ["container", "dropdown", "badge", "list"]
   connect() {
@@ -74,7 +72,7 @@ export default class extends Controller {
             </div>
             <div class="ml-3 w-0 flex-1">
               <p class="text-sm font-medium text-gray-900">${data.message}</p>
-              <p class="text-xs text-gray-500 mt-1">Vừa xong</p>
+              <p class="text-xs text-gray-500 mt-1">Just now</p>
             </div>
           </div>
         </a>

@@ -42,7 +42,7 @@ class EmployeesController < ApplicationController
       if @employee.user
         Notification.create(
           user: @employee.user,
-          message: "Hồ sơ nhân viên của bạn đã được cập nhật: #{@employee.position}!",
+          message: "Your profile has been updated: #{@employee.position}!",
           url: employee_path(@employee)
         )
       end
