@@ -1,0 +1,27 @@
+.ml-4.flex.items-center.md:ml-6
+  div.relative.mr-4
+    button.bg-gray-800.p-1.rounded-full.text-gray-400.hover:text-white.focus:outline-none.focus:ring-2.focus:ring-offset-2.focus:ring-offset-gray-800.focus:ring-white type="button" data-action="click->notifications#toggle"
+      span.sr-only View notifications
+      svg.h-6.w-6 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+      
+      - if user_signed_in?
+        - unread_count = current_user.notifications.unread.count
+        span.absolute.top-0.right-0.block.h-2.w-2.rounded-full.bg-red-500.ring-2.ring-white class=(unread_count.zero? ? "hidden" : "") data-notifications-target="badge"
+    
+    div.hidden.origin-top-right.absolute.right-0.mt-2.w-80.rounded-md.shadow-lg.py-1.bg-white.ring-1.ring-black.ring-opacity-5.focus:outline-none.z-50 data-notifications-target="dropdown"
+      div.px-4.py-2.border-b.border-gray-100.flex.justify-between.items-center
+        h3.text-sm.font-semibold.text-gray-700 Notification
+        a.text-xs.text-blue-600.hover:underline href="#" Mark all as read                 
+      div.max-h-64.overflow-y-auto data-notifications-target="list"
+        - if user_signed_in?
+          - if current_user.notifications.empty?
+            div.px-4.py-3.text-sm.text-gray-500.text-center No notifications
+          - else
+            - current_user.notifications.limit(5).each do |notification|
+              = render "notifications/notification", notification: notification
+
+  - if user_signed_in?
+    = button_to "Logout", destroy_user_session_path, method: :delete, class: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+  - else
+    = link_to "Log in", new_user_session_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
