@@ -1,4 +1,9 @@
-a.block.px-4.py-3.hover:bg-gray-50.transition.duration-150.ease-in-bot class=(notification.read_at ? "opcaity-50" : "bg-blue-50") href=notification.url
+a.block.px-4.py-3.hover:bg-gray-50.transition.duration-150.ease-in-out(
+  href=notification.url 
+  class=(notification.read_at ? "opacity-50" : "bg-blue-50")
+  data-action="click->notifications#markAsRead" 
+  data-notifications-id-param=notification.id
+)
   div.flex.items-start
     div.flex-shrink-0
       span.inline-flex.items-center.justify-center.h-8.w-8.rounded-full.bg-blue-500
