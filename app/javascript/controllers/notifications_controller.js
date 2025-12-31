@@ -83,8 +83,10 @@ export default class extends Controller {
       setTimeout(() => { toastElement.remove() }, 300)
     }, 5000)
   }
+
   markAsRead(event) {
-    const id = event.params.id || event.currentTarget.dataset.notificationsIdParam
+    const id = event.params.id
+
     if (!id || event.currentTarget.classList.contains("opacity-50")) return
 
     this.channel.perform("mark_as_read", { id: id })
@@ -92,6 +94,24 @@ export default class extends Controller {
     event.currentTarget.classList.remove("bg-blue-50")
     event.currentTarget.classList.add("opacity-50")
     this.decrementBadgeCount()
+  }
+
+  markAllAsRead(event) {
+    event.preventDefault()
+
+    this.channel.perform("mark_all_as_read")
+
+    if (this.hasBadgeTarget) {
+      this.badgeTarget.classList.add("hidden")
+    }
+
+    if (this.hasListTarget) {
+      this.listTarget.querySelectorAll("a").forEach((item) => {
+        item.classList.remove("bg-blue-50")
+        item.classList.add("opacity-50")
+        item.style.backgroundColor = "white"
+      })
+    }
   }
 
   decrementBadgeCount() {

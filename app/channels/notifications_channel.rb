@@ -8,8 +8,11 @@ class NotificationsChannel < ApplicationCable::Channel
   end
 
   def mark_as_read(data)
-    notification = current_user.notifications.find(data["id"])
-    notification.update!(read_at: Time.current)
+    current_user.notifications.find(data["id"]).update!(read_at: Time.current)
+  end
+
+  def mark_all_as_read
+    current_user.notifications.unread.update_all(read_at: Time.current)
   end
 
   def unsubscribed
