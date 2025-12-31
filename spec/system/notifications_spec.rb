@@ -9,10 +9,6 @@ RSpec.describe 'Notifications System', type: :system do
 
   before do
     login_user(user)
-
-    page.driver.browser.manage.window.resize_to(1400, 1400)
-
-    puts "🖥 CURRENT WINDOW SIZE: #{page.driver.browser.manage.window.size}"
   end
 
   it 'allows user to mark ALL as read' do

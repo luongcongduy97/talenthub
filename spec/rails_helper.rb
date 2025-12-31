@@ -36,5 +36,11 @@ RSpec.configure do |config|
       options.add_argument('--no-sandbox')
       options.add_argument('--disable-dev-shm-usage')
     end
+
+    if example.metadata[:mobile]
+      Capybara.current_session.driver.browser.manage.window.resize_to(375, 812)
+    else
+      Capybara.current_session.driver.browser.manage.window.resize_to(1400, 1400)
+    end
   end
 end
