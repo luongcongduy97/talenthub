@@ -12,7 +12,7 @@
     div.hidden.origin-top-right.absolute.right-0.mt-2.w-80.rounded-md.shadow-lg.py-1.bg-white.ring-1.ring-black.ring-opacity-5.focus:outline-none.z-50 data-notifications-target="dropdown"
       div.px-4.py-2.border-b.border-gray-100.flex.justify-between.items-center
         h3.text-sm.font-semibold.text-gray-700 Notification
-        a.text-xs.text-blue-600.hover:underline href="#" Mark all as read                 
+        a.text-xs.text-blue-600.hover:underline data-action="click->notifications#markAllAsRead" href="#" Mark all as read                 
       div.max-h-64.overflow-y-auto data-notifications-target="list"
         - if user_signed_in?
           - if current_user.notifications.empty?

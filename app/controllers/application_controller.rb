@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include Pundit
+  include Pundit::Authorization
 
   # Originally the application restricted access to only "modern" browsers
   # using `allow_browser versions: :modern`. Some mobile browsers were

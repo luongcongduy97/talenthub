@@ -23,6 +23,24 @@ RSpec.configure do |config|
   config.include AuthenticationHelper, type: :system
 
   config.before(:each, type: :system) do
-    driven_by(:rack_test)
+    driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 1400 ] do |options|
+      options.add_argument('--window-size=1400,1400')
+
+      options.add_preference('credentials_enable_service', false)
+      options.add_preference('profile.password_manager_enabled', false)
+      options.add_argument('--disable-features=PasswordLeakDetection')
+
+      options.add_argument('--disable-notifications')
+      options.add_argument('--disable-infobars')
+      options.add_argument('--disable-gpu')
+      options.add_argument('--no-sandbox')
+      options.add_argument('--disable-dev-shm-usage')
+    end
+
+    # if example.metadata[:mobile]
+    #   Capybara.current_session.driver.browser.manage.window.resize_to(375, 812)
+    # else
+    #   Capybara.current_session.driver.browser.manage.window.resize_to(1400, 1400)
+    # end
   end
 end

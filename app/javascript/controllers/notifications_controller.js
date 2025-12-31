@@ -4,13 +4,23 @@ import { createConsumer } from "@rails/actioncable"
 export default class extends Controller {
   static targets = ["container", "dropdown", "badge", "list"]
   connect() {
-    createConsumer().subscriptions.create("NotificationsChannel", {
+    this.channel = createConsumer().subscriptions.create("NotificationsChannel", {
+      connected: () => {
+        console.log("Connected successfully!")
+      },
       received: (data) => {
+        if (data.error) {
+          this.displayErrorToast(data.error)
+          return
+        }
         this.displayToast(data.message)
         this.updateBadge()
         this.prependToList(data)
       }
     })
+
+    window.myController = this 
+    console.log("👉 Debug mode on. Type: window.myController.markAsRead(999999)")
   }
 
   toggle(event) {
@@ -50,6 +60,64 @@ export default class extends Controller {
         toastElement.remove()
       }, 300)
     }, 4000)
+  }
+
+  displayErrorToast(message) {
+    const errorHtml = `
+      <div class="transform transition-all duration-300 ease-out translate-x-full opacity-0 flex items-center w-full max-w-xs p-4 mb-3 text-red-500 bg-white rounded-lg shadow border-l-4 border-red-500 dark:text-red-400 dark:bg-gray-800" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+          </svg>
+        </div>
+        <div class="ms-3 text-sm font-normal">${message}</div>
+      </div>
+    `
+
+    this.containerTarget.insertAdjacentHTML("beforeend", errorHtml)
+    const toastElement = this.containerTarget.lastElementChild
+
+    setTimeout(() => { toastElement.classList.remove('translate-x-full', 'opacity-0') }, 10)
+    setTimeout(() => {
+      toastElement.classList.add('opacity-0', 'translate-x-full')
+      setTimeout(() => { toastElement.remove() }, 300)
+    }, 5000)
+  }
+
+  markAsRead(event) {
+    const id = event.params.id
+
+    if (!id || event.currentTarget.classList.contains("opacity-50")) return
+
+    this.channel.perform("mark_as_read", { id: id })
+
+    event.currentTarget.classList.remove("bg-blue-50")
+    event.currentTarget.classList.add("opacity-50")
+    this.decrementBadgeCount()
+  }
+
+  markAllAsRead(event) {
+    event.preventDefault()
+
+    this.channel.perform("mark_all_as_read")
+
+    if (this.hasBadgeTarget) {
+      this.badgeTarget.classList.add("hidden")
+    }
+
+    if (this.hasListTarget) {
+      this.listTarget.querySelectorAll("a").forEach((item) => {
+        item.classList.remove("bg-blue-50")
+        item.classList.add("opacity-50")
+        item.style.backgroundColor = "white"
+      })
+    }
+  }
+
+  decrementBadgeCount() {
+    if (this.hasBadgeTarget) {
+      this.badgeTarget.classList.add("hidden") 
+    }
   }
 
   updateBadge() {
